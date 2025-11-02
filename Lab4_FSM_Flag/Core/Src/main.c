@@ -251,31 +251,77 @@ void FlagStopMoving() {
 void BaiTapFlag() {
 	switch (statusFlag) {
 	case INIT_SYSTEM:
+		lcd_clear(0x875c);
+		lcd_fill(0, 0, 240, 20, BLUE);
+		lcd_show_picture(80, 100, 90, 209, gImage_c_flag);
 
+		statusFlag = BOTTOM_POSITION;
 		break;
 
 	case MOVING_UP:
+		lcd_show_string_center(0, 2, "   MOVING UP   ", WHITE, BLUE, 16, 0);
+		FlagMovingUp();
 
+		if (IsButtonDown()) {
+			statusFlag = MOVING_DOWN;
+		}
+
+		if (IsTopSwitch()) {
+			statusFlag = TOP_POSITION;
+		}
+
+		if (IsButtonStop()) {
+			statusFlag = STOP_MOVING;
+		}
 		break;
 
 	case BOTTOM_POSITION:
+		lcd_show_string_center(0, 2, "BOTTOM POSITION", WHITE, BLUE, 16, 0);
+		FlagStopMoving();
 
+		if (IsButtonUp()) {
+			statusFlag = MOVING_UP;
+		}
 		break;
 
 	case MOVING_DOWN:
+		lcd_show_string_center(0, 2, "  MOVING DOWN  ", WHITE, BLUE, 16, 0);
+		FlagMovingDown();
 
+		if (IsBottomSwitch()) {
+			statusFlag = BOTTOM_POSITION;
+		}
+
+		if (IsButtonStop()) {
+			statusFlag = STOP_MOVING;
+		}
 		break;
 
 	case TOP_POSITION:
+		lcd_show_string_center(0, 2, "  TOP POSTION  ", WHITE,
+		BLUE, 16, 0);
+		FlagStopMoving();
 
+		if (IsButtonDown()) {
+			statusFlag = MOVING_DOWN;
+		}
 		break;
 
 	case STOP_MOVING:
+		lcd_show_string_center(0, 2, "  STOP MOVING  ", WHITE, BLUE, 16, 0);
+		FlagStopMoving();
 
+		if (IsButtonUp()) {
+			statusFlag = MOVING_UP;
+		}
+
+		if (IsButtonDown()) {
+			statusFlag = MOVING_DOWN;
+		}
 		break;
 
 	default:
-
+		statusFlag = INIT_SYSTEM;
 		break;
 	}
 }
