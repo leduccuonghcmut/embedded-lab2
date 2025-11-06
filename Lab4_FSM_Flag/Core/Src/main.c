@@ -259,7 +259,7 @@ void BaiTapFlag() {
 		break;
 
 	case MOVING_UP:
-		lcd_show_string_center(0, 2, "   MOVING UP   ", WHITE, BLUE, 16, 0);
+		lcd_show_string_center(0, 2, "   MOVING UP   ", WHITE, RED, 16, 0);
 		FlagMovingUp();
 
 		if (IsButtonDown()) {
@@ -276,7 +276,7 @@ void BaiTapFlag() {
 		break;
 
 	case BOTTOM_POSITION:
-		lcd_show_string_center(0, 2, "BOTTOM POSITION", WHITE, BLUE, 16, 0);
+		lcd_show_string_center(0, 2, "BOTTOM POSITION", WHITE, RED, 16, 0);
 		FlagStopMoving();
 
 		if (IsButtonUp()) {
@@ -285,11 +285,15 @@ void BaiTapFlag() {
 		break;
 
 	case MOVING_DOWN:
-		lcd_show_string_center(0, 2, "  MOVING DOWN  ", WHITE, BLUE, 16, 0);
+		lcd_show_string_center(0, 2, "  MOVING DOWN  ", WHITE, RED, 16, 0);
 		FlagMovingDown();
 
 		if (IsBottomSwitch()) {
 			statusFlag = BOTTOM_POSITION;
+		}
+
+		if(IsButtonUp()) {
+			statusFlag = MOVING_UP;
 		}
 
 		if (IsButtonStop()) {
@@ -299,7 +303,7 @@ void BaiTapFlag() {
 
 	case TOP_POSITION:
 		lcd_show_string_center(0, 2, "  TOP POSTION  ", WHITE,
-		BLUE, 16, 0);
+		RED, 16, 0);
 		FlagStopMoving();
 
 		if (IsButtonDown()) {
@@ -308,7 +312,7 @@ void BaiTapFlag() {
 		break;
 
 	case STOP_MOVING:
-		lcd_show_string_center(0, 2, "  STOP MOVING  ", WHITE, BLUE, 16, 0);
+		lcd_show_string_center(0, 2, "  STOP MOVING  ", WHITE, RED, 16, 0);
 		FlagStopMoving();
 
 		if (IsButtonUp()) {
